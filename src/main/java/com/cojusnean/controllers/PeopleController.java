@@ -1,19 +1,34 @@
 package com.cojusnean.controllers;
 
-import org.springframework.context.annotation.ComponentScan;
+import com.cojusnean.database.entity.People;
+import com.cojusnean.service.PeopleDAO;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 
 @Controller
-@ComponentScan(basePackages = "com.cojusnean")
+@RequestMapping("/people")
 public class PeopleController {
 
-    @GetMapping("/greeting")
-    public String greeting(@RequestParam(name="name", required=false, defaultValue="World") String name, Model model) {
-        model.addAttribute("name", name);
-        return "greeting";
+    private final PeopleDAO peopleDAO;
+
+    public PeopleController(PeopleDAO peopleDAO) {
+        this.peopleDAO = peopleDAO;
+    }
+
+    @GetMapping()
+    public String index() {
+        return "people";
+    }
+
+    @GetMapping("/new")
+    public String newPerson(@ModelAttribute("person") People people) {
+        return "new";
+    }
+
+    @PostMapping()
+    public String addPerson(@ModelAttribute("person") People people) {
+        peopleDAO.save(people);
+        return "redirect:people";
     }
 }

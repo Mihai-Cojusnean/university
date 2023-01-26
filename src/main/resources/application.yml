@@ -6,6 +6,9 @@ spring:
     username: postgres
     password: postgres
     driver-class-name: org.postgresql.Driver
+  sql:
+    init:
+      mode: always
   jpa:
     generate-ddl: true
     show-sql: true
@@ -14,6 +17,3 @@ spring:
     properties:
       hibernate:
         format_sql: true
-  sql:
-    init:
-      mode: embedded
