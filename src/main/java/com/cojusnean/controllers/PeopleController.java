@@ -2,33 +2,45 @@ package com.cojusnean.controllers;
 
 import com.cojusnean.database.entity.People;
 import com.cojusnean.service.PeopleDAO;
-import org.springframework.stereotype.Controller;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 
-@Controller
-@RequestMapping("/people")
+
+@RestController
+@RequestMapping("people")
 public class PeopleController {
 
     private final PeopleDAO peopleDAO;
 
+    @Autowired
     public PeopleController(PeopleDAO peopleDAO) {
         this.peopleDAO = peopleDAO;
     }
 
-    @GetMapping()
-    public String index() {
-        return "people";
+    @GetMapping
+    public List<People> getAll() {
+        return peopleDAO.findAll();
     }
 
-    @GetMapping("/new")
-    public String newPerson(@ModelAttribute("person") People people) {
-        return "new";
+    @GetMapping("{id}")
+    public People getOne(@PathVariable Long id) {
+        return peopleDAO.get(id);
     }
 
-    @PostMapping()
-    public String addPerson(@ModelAttribute("person") People people) {
-        peopleDAO.save(people);
-        return "redirect:people";
+    @PostMapping
+    public People create(@RequestBody People person) {
+        return peopleDAO.save(person);
+    }
+
+    @PutMapping("/{id}")
+    public People update(@PathVariable("id") String peopleFromDb, @RequestBody People people) {
+        return peopleDAO.update(peopleFromDb, people);
+    }
+
+    @DeleteMapping("{id}")
+    public void delete(@PathVariable("id") String person) {
+        peopleDAO.delete(person);
     }
 }
