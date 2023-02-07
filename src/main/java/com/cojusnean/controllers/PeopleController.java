@@ -1,7 +1,7 @@
 package com.cojusnean.controllers;
 
 import com.cojusnean.database.entity.People;
-import com.cojusnean.service.PeopleDAO;
+import com.cojusnean.database.repository.PeopleRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,35 +12,35 @@ import java.util.List;
 @RequestMapping("people")
 public class PeopleController {
 
-    private final PeopleDAO peopleDAO;
+    private final PeopleRepo peopleRepo;
 
     @Autowired
-    public PeopleController(PeopleDAO peopleDAO) {
-        this.peopleDAO = peopleDAO;
+    public PeopleController(PeopleRepo peopleRepo) {
+        this.peopleRepo = peopleRepo;
     }
 
     @GetMapping
     public List<People> getAll() {
-        return peopleDAO.findAll();
+        return peopleRepo.findAll();
     }
 
     @GetMapping("{id}")
     public People getOne(@PathVariable Long id) {
-        return peopleDAO.get(id);
+        return peopleRepo.getReferenceById(id);
     }
 
     @PostMapping
     public People create(@RequestBody People person) {
-        return peopleDAO.save(person);
+        return peopleRepo.save(person);
     }
 
     @PutMapping("/{id}")
-    public People update(@PathVariable("id") String peopleFromDb, @RequestBody People people) {
-        return peopleDAO.update(peopleFromDb, people);
+    public People update(@RequestBody People people) {
+        return peopleRepo.save(people);
     }
 
     @DeleteMapping("{id}")
-    public void delete(@PathVariable("id") String person) {
-        peopleDAO.delete(person);
+    public void delete(@PathVariable("id") Long id) {
+        peopleRepo.deleteById(id);
     }
 }
