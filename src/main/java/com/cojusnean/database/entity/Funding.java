@@ -13,12 +13,12 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Table(name = "student", schema = "event_management")
+@Table(name = "funding", schema = "event_management")
 public class Funding {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    long id;
 
     float total_amount;
     String status;

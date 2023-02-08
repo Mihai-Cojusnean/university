@@ -1,18 +1,13 @@
 <script>
-import PeopleList from "@/components/PeopleList.vue";
-import PeopleForm from "@/components/PeopleForm.vue";
 </script>
 
 <template>
-  <header>
-    <div class="wrapper">
-      <PeopleList msg="You did it!" />
-    </div>
-  </header>
 
-  <main>
-    <PeopleForm />
-  </main>
+  <v-app>
+    <v-toolbar app>
+      <v-toolbar-title>hui sosi</v-toolbar-title>
+    </v-toolbar>
+  </v-app>
 </template>
 
 <style scoped>
