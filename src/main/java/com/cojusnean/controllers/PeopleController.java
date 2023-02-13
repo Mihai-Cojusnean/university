@@ -10,6 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("people")
+@CrossOrigin("http://localhost:5173/")
 public class PeopleController {
 
     private final PeopleRepo peopleRepo;
@@ -34,7 +35,7 @@ public class PeopleController {
         return peopleRepo.save(person);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("{id}")
     public People update(@RequestBody People people) {
         return peopleRepo.save(people);
     }
