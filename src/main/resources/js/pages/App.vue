@@ -1,14 +1,21 @@
-<script>
-</script>
-
 <template>
-
-  <v-app>
-    <v-toolbar app>
-      <v-toolbar-title>hui sosi</v-toolbar-title>
-    </v-toolbar>
-  </v-app>
+        <peopleList :people="people"></peopleList>
 </template>
+
+<script>
+import PeopleList from "../components/PeopleList.vue";
+
+export default {
+    components: {
+        PeopleList
+    },
+    data() {
+        return {
+            people: []
+        }
+    }
+}
+</script>
 
 <style scoped>
 header {
