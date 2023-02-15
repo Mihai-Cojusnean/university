@@ -1,42 +1,16 @@
 <template>
-  <div>
-    <h1>Hello from peoplerow</h1>
-    <tbody>
-    <tr>
-      <td>{{ person.first_name }}</td>
-      <td>{{ person.last_name }}</td>
-      <td>{{ person.gender }}</td>
-      <td>{{ person.date_of_birth }}</td>
-      <td>{{ person.country }}</td>
-      <td>{{ person.city }}</td>
-      <td>{{ person.address }}</td>
-      <td>{{ person.email }}</td>
-      <td>{{ person.phone }}</td>
-      <td>{{ person.form }}</td>
-      <td><input type="button" value="Edit" @click="edit"></td>
-      <td><input type="button" value="X" @click="del"></td>
-    </tr>
-    </tbody>
+  <div class="item">
+    <i>
+      <slot name="icon"></slot>
+    </i>
+    <div class="details">
+      <h3>
+        <slot name="heading"></slot>
+      </h3>
+      <slot></slot>
+    </div>
   </div>
 </template>
-
-<script>
-export default {
-  props: ['people', 'editMethod', 'person'],
-  methods: {
-    edit: function () {
-      this.editMethod(this.person);
-    },
-    del: function () {
-      fetch("/people/" + this.person.id, {
-        method: 'DELETE',
-      }).then(result => {
-        if (result.ok) this.people.splice(this.people.indexOf(this.person), 1)
-      })
-    }
-  }
-}
-</script>
 
 <style scoped>
 .item {
@@ -55,7 +29,6 @@ i {
   place-content: center;
   width: 32px;
   height: 32px;
-
   color: var(--color-text);
 }
 

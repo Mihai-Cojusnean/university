@@ -29,19 +29,29 @@
 
 <script>
 import PeopleForm from "./PeopleForm.vue";
-import PeopleRow from "./PeopleRow.vue";
+// import PeopleRow from "./PeopleRow.vue";
 
 export default {
-  components: PeopleForm, PeopleRow,
+  components: PeopleForm,
   props: ['people'],
+  async fetch({store}) {
+    // if (store.getters['peoples/peoples'].length === 0) {
+      await store.dispatch('index/fetch')
+    // }
+  },
   data: function () {
     return {
       person: null
     }
   },
-  created: function () {
-    fetch("/people").then(result => result.json()
-        .then(data => data.forEach(person => this.people.push(person))))
+  // created: function () {
+  //   fetch("/people").then(result => result.json()
+  //       .then(data => data.forEach(person => this.people.push(person))))
+  // },
+  computed: {
+    peoples() {
+      return this.$store.getters['peoples/peoples']
+    }
   },
   methods: {
     editMethod: function (person) {
