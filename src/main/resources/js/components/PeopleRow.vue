@@ -1,6 +1,4 @@
 <template>
-  <div>
-    <h1>Hello from peoplerow</h1>
     <tbody>
     <tr>
       <td>{{ person.first_name }}</td>
@@ -17,7 +15,6 @@
       <td><input type="button" value="X" @click="del"></td>
     </tr>
     </tbody>
-  </div>
 </template>
 
 <script>
