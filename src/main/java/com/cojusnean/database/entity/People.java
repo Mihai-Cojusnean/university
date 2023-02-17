@@ -21,7 +21,7 @@ public class People {
     String last_name;
     String first_name;
     String form;
-    short gender;
+    String gender;
     String date_of_birth;
     String phone;
     String email;
@@ -29,7 +29,7 @@ public class People {
     String city;
     String country;
 
-    public People(String last_name, String first_name, String form, short gender, String date_of_birth, String phone, String email, String address, String city, String country) {
+    public People(String last_name, String first_name, String form, String gender, String date_of_birth, String phone, String email, String address, String city, String country) {
         this.last_name = last_name;
         this.first_name = first_name;
         this.form = form;
