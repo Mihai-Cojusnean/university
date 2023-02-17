@@ -1,6 +1,7 @@
 <template>
-    <div style="position: relative; width: 800px">
-        <people-form :people="people" :personAttr="person"/>
+    <div class="container" style="padding-top: 50px">
+        <people-form :people="people"
+                     :personAttr="person"/>
         <table class="table table-bordered table-hover">
             <thead style="background-color: #858585; color: #152223">
             <tr>
@@ -54,7 +55,14 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+    background-color: darkslategrey;
+}
+body {
+    height: 100%
+}
+
 h1 {
     font-weight: 500;
     font-size: 2.6rem;
