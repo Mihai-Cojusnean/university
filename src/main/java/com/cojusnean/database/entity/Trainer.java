@@ -21,9 +21,9 @@ public class Trainer {
     long id;
 
     String type;
-    short is_active;
+    short isActive;
 
-    @JoinColumn(name = "people_id")
+    @JoinColumn(name = "peopleId")
     @ManyToOne(fetch = FetchType.LAZY)
     People people;
 }

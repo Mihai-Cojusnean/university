@@ -20,6 +20,6 @@ public class Funding {
     @GeneratedValue(strategy = GenerationType.AUTO)
     long id;
 
-    float total_amount;
+    float totalAmount;
     String status;
 }

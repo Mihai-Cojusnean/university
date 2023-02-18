@@ -21,15 +21,15 @@ public class Enrollment {
     @GeneratedValue(strategy = GenerationType.AUTO)
     long id;
 
-    String school_year;
-    String cursus;
-    short is_active;
-    LocalDate created_at;
-    String created_by;
-    LocalDate updated_at;
-    String updated_by;
+    String schoolYear;
+    String curs;
+    short isActive;
+    LocalDate createdAt;
+    String createdBy;
+    LocalDate updatedAt;
+    String updatedBy;
 
-    @JoinColumn(name = "student_id")
+    @JoinColumn(name = "studentId")
     @ManyToOne(fetch = FetchType.LAZY)
     Student student;
 }

@@ -18,9 +18,9 @@ public class Speaker {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    long speaker_id;
+    long speakerId;
 
-    @JoinColumn(name = "people_id")
+    @JoinColumn(name = "peopleId")
     @ManyToOne(fetch = FetchType.LAZY)
     People people;
 }

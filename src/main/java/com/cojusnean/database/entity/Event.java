@@ -22,16 +22,16 @@ public class Event {
     long id;
 
     String name;
-    LocalDate start_date;
-    LocalDate end_date;
+    LocalDate startDate;
+    LocalDate endDate;
     String type;
-    short is_active;
-    LocalDate created_at;
-    String created_by;
-    LocalDate updated_at;
-    String updated_by;
+    short isActive;
+    LocalDate createdAt;
+    String createdBy;
+    LocalDate updatedAt;
+    String updatedBy;
 
-    @JoinColumn(name = "speaker_id")
+    @JoinColumn(name = "speakerId")
     @ManyToOne(fetch = FetchType.LAZY)
     Speaker speaker;
 }

@@ -1,10 +1,10 @@
 <template>
     <tbody>
     <tr>
-      <td>{{ person.first_name }}</td>
-      <td>{{ person.last_name }}</td>
+      <td>{{ person.firstName }}</td>
+      <td>{{ person.lastName }}</td>
       <td>{{ person.gender }}</td>
-      <td>{{ person.date_of_birth }}</td>
+      <td>{{ person.dateOfBirth }}</td>
       <td>{{ person.country }}</td>
       <td>{{ person.city }}</td>
       <td>{{ person.address }}</td>

@@ -20,7 +20,7 @@ public class Student {
     @GeneratedValue(strategy = GenerationType.AUTO)
     long id;
 
-    short is_active;
+    short isActive;
 
     @JoinColumn(name = "people_id")
     @ManyToOne(fetch = FetchType.LAZY)
