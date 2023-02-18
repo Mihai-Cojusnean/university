@@ -21,12 +21,12 @@ public class Course {
     long id;
 
     String name;
-    int start_hour;
-    int end_hour;
+    int startHour;
+    int endHour;
     String day;
-    int school_year;
+    int schoolYear;
 
-    @JoinColumn(name = "trainer_id")
+    @JoinColumn(name = "trainerId")
     @ManyToOne(fetch = FetchType.LAZY)
     Trainer trainer;
 }

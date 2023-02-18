@@ -3,18 +3,16 @@
         <form>
             <div class="form-row">
                 <div class="form-group col-md-6">
-
-                    <input type="text" class="form-control" placeholder="Write your first name" v-model="first_name"/>
+                    <input type="text" class="form-control" placeholder="Write your first name" v-model="firstName"/>
                 </div>
                 <div class="form-group col-md-6">
-
-                    <input type="text" class="form-control" placeholder="Write your first name" v-model="last_name"/>
+                    <input type="text" class="form-control" placeholder="Write your first name" v-model="lastName"/>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
-
-                    <input type="text" class="form-control" placeholder="Write your date of birth dd/mm/yyyy" v-model="date_of_birth"/>
+                    <input type="text" class="form-control" placeholder="Write your date of birth dd/mm/yyyy"
+                           v-model="dateOfBirth"/>
                 </div>
                 <div class="form-group col-md-6">
                     <div class="form-check form-check-inline">
@@ -41,14 +39,15 @@
                 </div>
                 <div class="form-group col-md-4">
                     <select id="city" class="form-control" v-model="city">
-                        <option value="none">Select the city you from</option>
+                        <option value="none" disabled selected>Select the city you from</option>
                         <option v-for="city in country.cities" :value="city">{{ city.name }}</option>
                     </select>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <input type="email" class="form-control" placeholder="Write your email example@mail.com" v-model="email"/>
+                    <input type="email" class="form-control" placeholder="Write your email example@mail.com"
+                           v-model="email"/>
                 </div>
                 <div class="form-group col-md-6">
                     <input type="number" class="form-control" placeholder="Write your phone number" v-model="phone"/>
@@ -75,9 +74,9 @@ export default {
     data: function () {
         return {
             id: '',
-            first_name: '',
-            last_name: '',
-            date_of_birth: '',
+            firstName: '',
+            lastName: '',
+            dateOfBirth: '',
             gender: '',
             email: '',
             address: '',
@@ -89,27 +88,27 @@ export default {
         }
     },
     watch: {
-        personAttr: function (newVal) {
-            this.id = newVal.id
-            this.first_name = newVal.first_name
-            this.last_name = newVal.last_name
-            this.date_of_birth = newVal.date_of_birth
-            this.gender = newVal.gender
-            this.email = newVal.email
-            this.address = newVal.address
-            this.country = newVal.country
-            this.city = newVal.city
-            this.phone = newVal.phone
-            this.form = newVal.form
+        personAttr: function (newValue) {
+            this.id = newValue.id
+            this.firstName = newValue.firstName
+            this.lastName = newValue.lastName
+            this.dateOfBirth = newValue.dateOfBirth
+            this.gender = newValue.gender
+            this.email = newValue.email
+            this.address = newValue.address
+            this.country = newValue.country
+            this.city = newValue.city
+            this.phone = newValue.phone
+            this.form = newValue.form
         }
     },
     methods: {
         create: function () {
             let body = JSON.stringify({
                 id: this.id,
-                first_name: this.first_name,
-                last_name: this.last_name,
-                date_of_birth: this.date_of_birth,
+                firstName: this.firstName,
+                lastName: this.lastName,
+                dateOfBirth: this.dateOfBirth,
                 gender: this.gender,
                 email: this.email,
                 address: this.address,
@@ -127,7 +126,7 @@ export default {
                     this.people.splice(getIndex(this.people, data.id), 1, data);
                 }));
             } else {
-                fetch("/people", {
+                fetch("/people/", {
                     method: "POST",
                     headers: {"Content-Type": "application/json"},
                     body: body
@@ -135,8 +134,9 @@ export default {
                     this.people.push(data);
                 }));
             }
-            this.id = this.first_name = this.last_name = this.date_of_birth = this.gender
-                = this.email = this.address = this.country = this.city = this.phone = this.form = ''
+            this.id = this.firstName = this.lastName = this.dateOfBirth = this.gender
+                = this.email = this.address = this.phone = this.form = ''
+            this.country = this.city = 'none'
         }
     }
 }

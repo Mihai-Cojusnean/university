@@ -24,12 +24,12 @@ public class PeopleController {
         return peopleRepo.findAll();
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public People getOne(@PathVariable Long id) {
         return peopleRepo.getReferenceById(id);
     }
 
-    @PostMapping
+    @PostMapping("/")
     public People create(@RequestBody People person) {
         return peopleRepo.save(person);
     }
@@ -39,7 +39,7 @@ public class PeopleController {
         return peopleRepo.save(people);
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     public void delete(@PathVariable("id") Long id) {
         peopleRepo.deleteById(id);
     }
