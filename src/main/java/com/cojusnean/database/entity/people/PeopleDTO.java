@@ -1,6 +1,5 @@
 package com.cojusnean.database.entity.people;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,25 +11,29 @@ import javax.persistence.*;
 @Entity
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name = "people", schema = "event_management")
-public class People {
+public class PeopleDTO {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
     String lastName;
+
     String firstName;
+
     String gender;
+
     String dateOfBirth;
+
     String phone;
+
     String email;
+
     String address;
+
     String city;
+
     String country;
-    String addedBy;
-    String updatedBy;
-    String addedAt;
-    String updatedAt;
+
 }

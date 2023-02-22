@@ -26,10 +26,10 @@ public class MainController {
     @GetMapping
     public String main(Model model) {
         HashMap<Object, Object> data = new HashMap<>();
-        data.put("people", peopleRepo.findAll());
-        data.put("countries", countryRepo.findAll());
+//        data.put("people", peopleRepo.findAll());
+//        data.put("countries", countryRepo.findAll());
 
-        model.addAttribute("frontendData", data);
+//        model.addAttribute("frontendData", data);
         model.addAttribute("isDevMode", true);
 
         return "index";

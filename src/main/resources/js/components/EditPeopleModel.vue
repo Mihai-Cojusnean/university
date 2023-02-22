@@ -14,18 +14,18 @@
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <input type="text" class="form-control" placeholder="Write your first name"
-                                       v-model="firstName"/>
+                                       v-model="user.firstName"/>
                             </div>
                             <div class="form-group col-md-6">
                                 <input type="text" class="form-control" placeholder="Write your first name"
-                                       v-model="lastName"/>
+                                       v-model="user.lastName"/>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <input type="text" class="form-control"
                                        placeholder="Write your date of birth dd/mm/yyyy"
-                                       v-model="dateOfBirth"/>
+                                       v-model="user.dateOfBirth"/>
                             </div>
                             <div class="form-group col-md-6">
                                 <div class="form-check form-check-inline">
@@ -108,34 +108,14 @@ export default {
             addedBy: 'none',
             addedAt: '',
             updatedBy: 'none',
-            countries: frontendData.countries
+            countries: ''
         }
     },
-    watch: {
-        personAttr: function (newValue) {
-            this.id = newValue.id
-            this.firstName = newValue.firstName
-            this.lastName = newValue.lastName
-            this.dateOfBirth = newValue.dateOfBirth
-            this.gender = newValue.gender
-            this.email = newValue.email
-            this.address = newValue.address
-            this.country = newValue.country
-            this.city = newValue.city
-            this.phone = newValue.phone
-            this.addedBy = newValue.addedBy
-            this.addedAt = newValue.addedAt
-        }
+    computed: {
+      user() {
+        return this.$store.getters.getUser
+      }
     },
-    // updated() {
-    //     for (let i = 0; i < 3; i++) {
-    //         if (this.country === this.countries[i].name) {
-    //             this.country = this.countries[i];
-    //             console.log(this.country)
-    //             break;
-    //         }
-    //     }
-    // },
     methods: {
         update: function () {
             fetch("/people/" + this.id, {

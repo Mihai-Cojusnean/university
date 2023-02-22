@@ -1,6 +1,6 @@
 <template>
     <div class="container" style="padding-top: 50px">
-        <people-form :people="people"/>
+        <people-form :people="getPeoples()"/>
         <table class="table table-bordered table-hover" id="myTable">
             <thead style="background-color: #858585; color: #152223">
             <tr>
@@ -18,7 +18,7 @@
                 <th>Delete</th>
             </tr>
             </thead>
-            <people-row v-for="person in people"
+            <people-row v-for="person in getPeoples()"
                         :key="person.id"
                         :person="person"
                         :editMethod="editMethod"
@@ -35,21 +35,28 @@ import PeopleRow from "./PeopleRow.vue";
 import EditPeopleModel from "./EditPeopleModel.vue"
 
 export default {
+    data: function () {
+        return {
+            person: null,
+            peoples: []
+        }
+    },
+  mounted() {
+    this.$store.dispatch('loadPeoples')
+  },
     props: ['people'],
     components: {
         PeopleForm,
         PeopleRow,
         EditPeopleModel
     },
-    data: function () {
-        return {
-            person: null
-        }
-    },
     methods: {
         editMethod: function (person) {
-            this.person = person;
-        }
+          this.person = this.$store.dispatch('loadUserById', person.id)
+        },
+      getPeoples() {
+        return this.$store.getters.people;
+      }
     }
 }
 </script>

@@ -1,6 +1,10 @@
 server:
   port: 8081
 spring:
+  spring:
+    jackson:
+      serialization:
+        fail-on-empty-beans: false
   datasource:
     url: jdbc:postgresql://localhost:5432/university
     username: postgres
@@ -10,10 +14,10 @@ spring:
     init:
       mode: always
   jpa:
+    properties:
+      hibernate:
+        format_sql: true
     generate-ddl: true
     show-sql: true
     hibernate:
       ddl-auto: update
-    properties:
-      hibernate:
-        format_sql: true

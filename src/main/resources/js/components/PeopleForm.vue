@@ -85,7 +85,7 @@ export default {
             city: 'none',
             phone: '',
             addedBy: 'none',
-            countries: frontendData.countries
+            countries: ''
         }
     },
     methods: {

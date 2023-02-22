@@ -1,13 +1,15 @@
 package com.cojusnean.controllers;
 
 import com.cojusnean.database.entity.people.People;
+import com.cojusnean.database.entity.people.PeopleDTO;
+import com.cojusnean.database.repository.PeopleDtoRepo;
 import com.cojusnean.database.repository.PeopleRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
+
+import static com.cojusnean.util.DataUtil.getNowTime;
 
 
 @RestController
@@ -15,15 +17,17 @@ import java.util.List;
 public class PeopleController {
 
     private final PeopleRepo peopleRepo;
+    private final PeopleDtoRepo peopleDtoRepo;
 
     @Autowired
-    public PeopleController(PeopleRepo peopleRepo) {
+    public PeopleController(PeopleRepo peopleRepo, PeopleDtoRepo peopleDtoRepo) {
         this.peopleRepo = peopleRepo;
+        this.peopleDtoRepo = peopleDtoRepo;
     }
 
-    @GetMapping
-    public List<People> getAll() {
-        return peopleRepo.findAll();
+    @GetMapping("/peoples")
+    public List<PeopleDTO> getAll() {
+        return peopleDtoRepo.findAll();
     }
 
     @GetMapping("/{id}")
@@ -46,11 +50,5 @@ public class PeopleController {
     @DeleteMapping("/{id}")
     public void delete(@PathVariable("id") Long id) {
         peopleRepo.deleteById(id);
-    }
-
-    protected String getNowTime() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        LocalDateTime dateTime = LocalDateTime.now();
-        return dateTime.format(formatter);
     }
 }
