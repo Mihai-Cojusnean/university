@@ -1,8 +1,8 @@
 package com.cojusnean.controllers;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
+import com.cojusnean.database.repository.CountryRepo;
+import com.cojusnean.database.repository.PeopleRepo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,12 +14,20 @@ import java.util.HashMap;
 @RequestMapping("/")
 public class MainController {
 
-    @GetMapping
-    public String main(
-            Model model
-    ) throws JsonProcessingException {
-        HashMap<Object, Object> data = new HashMap<>();
+    private final PeopleRepo peopleRepo;
+    private final CountryRepo countryRepo;
 
+    @Autowired
+    public MainController(PeopleRepo peopleRepo, CountryRepo countryRepo) {
+        this.peopleRepo = peopleRepo;
+        this.countryRepo = countryRepo;
+    }
+
+    @GetMapping
+    public String main(Model model) {
+        HashMap<Object, Object> data = new HashMap<>();
+        data.put("people", peopleRepo.findAll());
+        data.put("countries", countryRepo.findAll());
 
         model.addAttribute("frontendData", data);
         model.addAttribute("isDevMode", true);

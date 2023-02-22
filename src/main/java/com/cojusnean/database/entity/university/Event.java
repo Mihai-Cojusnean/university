@@ -1,5 +1,6 @@
-package com.cojusnean.database.entity;
+package com.cojusnean.database.entity.university;
 
+import com.cojusnean.database.entity.people.Speaker;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,22 +15,24 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Table(name = "enrollment", schema = "event_management")
-public class Enrollment {
+@Table(name = "event", schema = "event_management")
+public class Event {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     long id;
 
-    String schoolYear;
-    String curs;
+    String name;
+    LocalDate startDate;
+    LocalDate endDate;
+    String type;
     short isActive;
     LocalDate createdAt;
     String createdBy;
     LocalDate updatedAt;
     String updatedBy;
 
-    @JoinColumn(name = "studentId")
+    @JoinColumn(name = "speakerId")
     @ManyToOne(fetch = FetchType.LAZY)
-    Student student;
+    Speaker speaker;
 }

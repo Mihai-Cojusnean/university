@@ -10,8 +10,8 @@
       <td>{{ person.address }}</td>
       <td>{{ person.email }}</td>
       <td>{{ person.phone }}</td>
-      <td>{{ person.form }}</td>
-      <td><input type="button" value="Edit" @click="edit"></td>
+      <td>{{ person.addedBy }}</td>
+      <td><input type="button" value="Edit" data-toggle="modal" data-target="#myModal" @click="edit"></td>
       <td><input type="button" value="X" @click="del"></td>
     </tr>
     </tbody>

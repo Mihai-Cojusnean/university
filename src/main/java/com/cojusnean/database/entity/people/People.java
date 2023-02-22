@@ -1,11 +1,13 @@
-package com.cojusnean.database.entity;
+package com.cojusnean.database.entity.people;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Data
 @Entity
@@ -15,12 +17,11 @@ import javax.persistence.*;
 public class People {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
     String lastName;
     String firstName;
-    String form;
     String gender;
     String dateOfBirth;
     String phone;
@@ -28,4 +29,8 @@ public class People {
     String address;
     String city;
     String country;
+    String addedBy;
+    String updatedBy;
+    String addedAt;
+    String updatedAt;
 }

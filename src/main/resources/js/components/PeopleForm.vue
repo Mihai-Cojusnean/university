@@ -55,7 +55,11 @@
             </div>
             <div class="form-row align-items-end">
                 <div class="form-group col-md-10">
-                    <input type="text" class="form-control" placeholder="" v-model="form"/>
+                    <select class="form-control" v-model="addedBy">
+                        <option value="none" disabled selected>Added by...</option>
+                        <option value="Cojusnean Mihai">Cojusnean Mihai</option>
+                        <option value="Kovalsky Liubomir">Kovalsky Liubomir</option>
+                    </select>
                 </div>
                 <div class="form-group col-md-2 bottom-0">
                     <button type="button" class="btn btn-lg btn-block" @click="create">Save</button>
@@ -66,11 +70,8 @@
 </template>
 
 <script>
-import {getIndex} from "../logic/collection";
-import list_of_countries from '../logic/collection.js'
-
 export default {
-    props: ['people', 'personAttr'],
+    props: ['people'],
     data: function () {
         return {
             id: '',
@@ -83,60 +84,35 @@ export default {
             country: 'none',
             city: 'none',
             phone: '',
-            form: '',
-            countries: list_of_countries
-        }
-    },
-    watch: {
-        personAttr: function (newValue) {
-            this.id = newValue.id
-            this.firstName = newValue.firstName
-            this.lastName = newValue.lastName
-            this.dateOfBirth = newValue.dateOfBirth
-            this.gender = newValue.gender
-            this.email = newValue.email
-            this.address = newValue.address
-            this.country = newValue.country
-            this.city = newValue.city
-            this.phone = newValue.phone
-            this.form = newValue.form
+            addedBy: 'none',
+            countries: frontendData.countries
         }
     },
     methods: {
         create: function () {
-            let body = JSON.stringify({
-                id: this.id,
-                firstName: this.firstName,
-                lastName: this.lastName,
-                dateOfBirth: this.dateOfBirth,
-                gender: this.gender,
-                email: this.email,
-                address: this.address,
-                country: this.country.name,
-                city: this.city.name,
-                phone: this.phone,
-                form: this.form
-            })
-            if (this.id) {
-                fetch("/people/" + this.id, {
-                    method: "PUT",
-                    headers: {"Content-Type": "application/json"},
-                    body: body
-                }).then(response => response.json().then(data => {
-                    this.people.splice(getIndex(this.people, data.id), 1, data);
-                }));
-            } else {
-                fetch("/people/", {
-                    method: "POST",
-                    headers: {"Content-Type": "application/json"},
-                    body: body
-                }).then(response => response.json().then(data => {
-                    this.people.push(data);
-                }));
-            }
+            fetch("/people/", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({
+                    id: this.id,
+                    firstName: this.firstName,
+                    lastName: this.lastName,
+                    dateOfBirth: this.dateOfBirth,
+                    gender: this.gender,
+                    email: this.email,
+                    address: this.address,
+                    country: this.country.name,
+                    city: this.city.name,
+                    phone: this.phone,
+                    addedBy: this.addedBy
+                })
+            }).then(response => response.json().then(data => {
+                this.people.push(data);
+            }));
+
             this.id = this.firstName = this.lastName = this.dateOfBirth = this.gender
-                = this.email = this.address = this.phone = this.form = ''
-            this.country = this.city = 'none'
+                = this.email = this.address = this.phone = ''
+            this.country = this.city = this.addedBy = 'none'
         }
     }
 }
@@ -149,12 +125,6 @@ export default {
 
 .btn:hover {
     background-color: darkslategrey;
-}
-
-.position-relative-example {
-    height: 200px;
-    width: 100%;
-    background-color: #f5f5f5;
 }
 
 .position-relative-example div {
