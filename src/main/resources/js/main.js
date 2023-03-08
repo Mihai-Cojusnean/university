@@ -1,8 +1,9 @@
-import App from "./pages/App.vue";
-import Vue from "vue";
-import store from './store/people'
+import App from './pages/App.vue'
+import Vue from 'vue'
+import store from './mainStore'
+import './logic/vee-validate'
 
-import "./assets/base.css";
+import './assets/base.css'
 import './assets/main.css'
 
 new Vue({

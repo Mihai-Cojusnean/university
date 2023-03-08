@@ -1,76 +1,105 @@
 <template>
-    <div class="modal fade bd-example-modal-lg" id="myModal" tabindex="-1" role="dialog"
-         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal" tabindex="-1" id="myModal">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalCenterTitle">Edit person</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <h5 class="modal-title" style="color: #858585">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <input type="text" class="form-control" placeholder="Write your first name"
-                                       v-model="user.firstName"/>
+                    <form id="form">
+                        <div class="row mb-4">
+                            <div class="col">
+                                <input class="form-control"
+                                       type="text"
+                                       placeholder="Write your first name"
+                                       v-model="person.firstName"
+                                       name="firstName"/>
                             </div>
-                            <div class="form-group col-md-6">
-                                <input type="text" class="form-control" placeholder="Write your first name"
-                                       v-model="user.lastName"/>
+                            <div class="col">
+                                <input class="form-control"
+                                       type="text"
+                                       placeholder="Write your last name"
+                                       v-model="person.lastName"
+                                       name="lastName"/>
                             </div>
                         </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <input type="text" class="form-control"
+                        <div class="row mb-4">
+                            <div class="col">
+                                <input class="form-control"
+                                       type="text"
                                        placeholder="Write your date of birth dd/mm/yyyy"
-                                       v-model="user.dateOfBirth"/>
+                                       v-model="person.dateOfBirth"
+                                       name="dateOfBirth"/>
                             </div>
-                            <div class="form-group col-md-6">
+                            <div class="col">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="inlineRadioOptions"
-                                           value="Male" v-model="gender">
+                                    <input class="form-check-input"
+                                           type="radio"
+                                           value="Male"
+                                           v-model="person.gender"
+                                           name="gander"/>
                                     <label class="form-check-label">Male</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="inlineRadioOptions"
-                                           value="Female" v-model="gender">
+                                    <input class="form-check-input"
+                                           type="radio"
+                                           value="Female"
+                                           v-model="person.gender"
+                                           name="gender">
                                     <label class="form-check-label">Female</label>
                                 </div>
                             </div>
                         </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-4">
-                                <input type="text" class="form-control" placeholder="Write your address"
-                                       v-model="address"/>
+                        <div class="row mb-4">
+                            <div class="col">
+                                <input class="form-control"
+                                       type="text"
+                                       placeholder="Write your address"
+                                       v-model="person.address"
+                                       name="address"/>
                             </div>
                             <div class="form-group col-md-4">
-                                <select class="form-control" v-model="country">
-                                    <option value="none" disabled selected>{{ country }}</option>
+                                <select class="form-select"
+                                        v-model="country"
+                                        name="country"
+                                        @change="setCities"
+                                        id="country">
+                                    <option value="none" disabled selected>{{ person.country }}</option>
                                     <option v-for="country in countries" :value="country">{{ country.name }}</option>
                                 </select>
                             </div>
                             <div class="form-group col-md-4">
-                                <select id="city" class="form-control" v-model="city">
-                                    <option value="none" disabled selected>{{ city }}</option>
-                                    <option v-for="city in country.cities" :value="city">{{ city.name }}</option>
+                                <select class="form-select"
+                                        v-model="city"
+                                        name="city">
+                                    <option value="saved" disabled selected>{{ person.city }}</option>
+                                    <option value="none">Select the city you from</option>
+                                    <option v-for="city in cities" :value="city.name">{{ city.name }}</option>
                                 </select>
                             </div>
                         </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <input type="email" class="form-control" placeholder="Write your email example@mail.com"
-                                       v-model="email"/>
+                        <div class="row mb-4">
+                            <div class="col">
+                                <input class="form-control"
+                                       type="email"
+                                       placeholder="Write your email example@mail.com"
+                                       v-model="person.email"
+                                       name="email"/>
                             </div>
                             <div class="form-group col-md-6">
-                                <input type="number" class="form-control" placeholder="Write your phone number"
-                                       v-model="phone"/>
+                                <input class="form-control"
+                                       type="number"
+                                       placeholder="Write your phone number"
+                                       v-model="person.phone"
+                                       name="phone"/>
                             </div>
                         </div>
-                        <div class="form-row align-items-end">
-                            <div class="form-group col-md-10">
-                                <select class="form-control" v-model="updatedBy">
+                        <div class="row mb-4 align-items-end">
+                            <div class="col">
+                                <select class="form-select"
+                                        v-model="updatedBy"
+                                        name="updatedBy">
                                     <option value="none" disabled selected>Updated by...</option>
                                     <option value="Cojusnean Mihai">Cojusnean Mihai</option>
                                     <option value="Kovalsky Liubomir">Kovalsky Liubomir</option>
@@ -80,8 +109,9 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal" @click="update">Save changes</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" @click="update" data-dismiss="modal">Save changes
+                    </button>
                 </div>
             </div>
         </div>
@@ -89,56 +119,33 @@
 </template>
 
 <script>
-import {getIndex} from "../logic/collection";
-
 export default {
-    props: ['people', 'personAttr', 'person'],
+    props: ['person', 'countries'],
     data: function () {
         return {
             id: '',
-            firstName: '',
-            lastName: '',
-            dateOfBirth: '',
-            gender: '',
-            email: '',
-            address: '',
             country: 'none',
-            city: 'none',
-            phone: '',
-            addedBy: 'none',
-            addedAt: '',
-            updatedBy: 'none',
-            countries: ''
+            city: 'saved',
+            updatedBy: 'none'
         }
     },
     computed: {
-      user() {
-        return this.$store.getters.getUser
-      }
+        cities() {
+            return this.$store.getters["countriesStore/cities"]
+        }
     },
     methods: {
-        update: function () {
-            fetch("/people/" + this.id, {
-                method: "PUT",
-                headers: {"Content-Type": "application/json"},
-                body: JSON.stringify({
-                    id: this.id,
-                    firstName: this.firstName,
-                    lastName: this.lastName,
-                    dateOfBirth: this.dateOfBirth,
-                    gender: this.gender,
-                    email: this.email,
-                    address: this.address,
-                    country: this.country.name,
-                    city: this.city.name,
-                    phone: this.phone,
-                    addedBy: this.addedBy,
-                    addedAt: this.addedAt,
-                    updatedBy: this.updatedBy
-                })
-            }).then(response => response.json().then(data => {
-                this.people.splice(getIndex(this.people, data.id), 1, data);
-            }));
+        update() {
+            const body = Object.fromEntries($('form')
+                .serializeArray()
+                .map(pair => [pair.name, pair.value]));
+            body['country'] = this.country.name
+            this.$store.dispatch('peopleStore/updatePerson', body)
+        },
+        setCities() {
+            this.city = "none"
+            const country = this.countries.find(country => country.name === this.country.name)
+            this.$store.commit('countriesStore/setCities', country.cities)
         }
     }
 }
@@ -147,4 +154,13 @@ export default {
 
 <style>
 
+.modal-content {
+    background-color: #282828FF;
+    font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
+    Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    font-size: 15px;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
 </style>

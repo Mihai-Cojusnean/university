@@ -5,9 +5,9 @@ import java.time.format.DateTimeFormatter;
 
 public final class DataUtil {
 
-    private DataUtil() {}
+    private DataUtil(){}
 
-    static public String getNowTime() {
+    public static String getNowTime() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         LocalDateTime dateTime = LocalDateTime.now();
         return dateTime.format(formatter);

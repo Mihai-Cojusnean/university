@@ -1,5 +1,5 @@
 <template>
-    <peopleList :people="people"></peopleList>
+    <peopleList></peopleList>
 </template>
 
 <script>
@@ -10,15 +10,10 @@ export default {
     components: {
         PeopleList
     },
-    data() {
-        return {
-            people: []
-        }
-    },
     mounted() {
         const headers = document.querySelectorAll(".table th")
-        headers.forEach(function (headerCell, idx, array) {
-            if (idx < array.length - 2) {
+        headers.forEach(headerCell => {
+            if (headerCell.textContent !== "Edit" && headerCell.textContent !== "Delete") {
                 headerCell.addEventListener("click", () => {
                     const tableElement = headerCell.closest('table')
                     const headerIndex = Array.prototype.indexOf.call(headerCell.parentElement.children, headerCell)
@@ -34,24 +29,24 @@ export default {
 
 <style>
 .table th {
-    cursor: pointer
+    cursor: pointer;
 }
 
 .table .th-sort-asc::after {
-    content: "\25b4"
+    content: "\25b4";
 }
 
 .table .th-sort-desc::after {
-    content: "\25be"
+    content: "\25be";
 }
 
 .table-sortable .th-sort-asc::after,
 .table-sortable .th-sort-desc::after {
-    margin-left: 5px
+    margin-left: 5px;
 }
 
 .table .th-sort-asc,
 .table .th-sort-desc {
     background: rgba(0, 0, 0, 0.1);
- }
+}
 </style>
