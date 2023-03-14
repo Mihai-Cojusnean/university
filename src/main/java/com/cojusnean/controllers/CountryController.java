@@ -25,8 +25,8 @@ public class CountryController {
         return countryRepo.findAll();
     }
 
-    @GetMapping("/{country}")
-    public List<City> getCities(@PathVariable String country) {
-        return countryRepo.findByName(country).getCities();
+    @GetMapping("/{id}")
+    public List<City> getCities(@PathVariable Long id) {
+        return countryRepo.getById(id).getCities();
     }
 }

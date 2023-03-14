@@ -33,7 +33,6 @@ const peopleStore = {
                 .then(response => commit('setPeople', response.data))
         },
         addPerson({commit}, body) {
-            console.log("a")
             axios
                 .post("people", body, {headers: {"Content-Type": "application/json"}})
                 .then(response => commit('addPerson', response.data));

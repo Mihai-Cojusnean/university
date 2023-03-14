@@ -1,18 +1,14 @@
 server:
   port: 8081
 spring:
-  spring:
-    jackson:
-      serialization:
-        fail-on-empty-beans: false
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
   datasource:
     url: jdbc:postgresql://localhost:5432/university
     username: postgres
     password: postgres
     driver-class-name: org.postgresql.Driver
-  jackson:
-    serialization:
-      fail-on-empty-beans: false
   sql:
     init:
       mode: always
@@ -24,3 +20,6 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: update
+  liquibase:
+    enabled: false
+    change-log: classpath:liquibase/changelog.yml

@@ -5,14 +5,10 @@ const countriesStore = {
     state: {
         countries: [],
         cities: [],
-        country: '',
     },
     mutations: {
         setCountries(state, countries) {
             state.countries = countries
-        },
-        setCountry(state, country) {
-          state.country = country
         },
         setCities(state, cities) {
             state.cities = cities
@@ -24,6 +20,11 @@ const countriesStore = {
                 .get('countries')
                 .then(response => commit('setCountries', response.data))
         },
+        loadCities({commit}, id) {
+            axios
+                .get('countries/' + id)
+                .then(response => commit('setCities', response.data))
+        }
     },
     getters: {
         countries(state) {

@@ -1,18 +1,18 @@
 package com.cojusnean.database.entity.people;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @Entity
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name = "people", schema = "event_management")
 public class People {
 
@@ -22,8 +22,8 @@ public class People {
 
     String lastName;
     String firstName;
-    String gender;
-    String dateOfBirth;
+    byte gender;
+    LocalDate dateOfBirth;
     String phone;
     String email;
     String address;
@@ -31,6 +31,6 @@ public class People {
     String country;
     String addedBy;
     String updatedBy;
-    String addedAt;
-    String updatedAt;
+    LocalDateTime addedAt;
+    LocalDateTime updatedAt;
 }

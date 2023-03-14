@@ -1,5 +1,6 @@
 package com.cojusnean.database.entity.countries;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,7 +22,8 @@ public class Country implements Serializable {
     Long id;
     String name;
 
+    @JsonIgnore
     @OneToMany(targetEntity = City.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "country", referencedColumnName = "name")
+    @JoinColumn(name = "countryId", referencedColumnName = "id")
     List<City> cities;
 }
