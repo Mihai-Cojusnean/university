@@ -32,3 +32,20 @@ a,
     padding: 0 2rem;
   }
 }
+.btn, .btn:hover, .btn:active, .btn:visited {
+  background-color: #858585;
+}
+
+.btn:hover {
+  background-color: darkslategrey;
+}
+
+.form-control::placeholder {
+  color: #181818;
+  opacity: 1;
+}
+
+.form-control:-ms-input-placeholder,
+.form-control::-ms-input-placeholder {
+  color: #181818;
+}

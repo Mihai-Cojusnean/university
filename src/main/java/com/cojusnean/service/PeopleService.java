@@ -35,14 +35,14 @@ public class PeopleService {
 
     public People update(People person) {
         People personFromDb = peopleRepo.getReferenceById(person.getId());
-        if (person.getFirstName() != null) personFromDb.setFirstName(person.getFirstName());
-        if (person.getLastName() != null) personFromDb.setLastName(person.getLastName());
-        if (person.getDateOfBirth() != null) personFromDb.setDateOfBirth(person.getDateOfBirth());
-        if (person.getGender() != null) personFromDb.setGender(person.getGender());
-        if (person.getAddress() != null) personFromDb.setAddress(person.getAddress());
+        personFromDb.setFirstName(person.getFirstName());
+        personFromDb.setLastName(person.getLastName());
+        personFromDb.setDateOfBirth(person.getDateOfBirth());
+        personFromDb.setGender(person.getGender());
+        personFromDb.setAddress(person.getAddress());
         if (person.getCountry() != null) personFromDb.setCountry(person.getCountry());
         if (person.getCity() != null) personFromDb.setCity(person.getCity());
-        if (person.getPhone() != null) personFromDb.setPhone(person.getPhone());
+        personFromDb.setPhone(person.getPhone());
         personFromDb.setUpdatedAt(DataUtil.getNowTime());
         personFromDb.setUpdatedBy(person.getUpdatedBy());
         return peopleRepo.save(personFromDb);

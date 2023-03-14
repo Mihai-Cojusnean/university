@@ -28,15 +28,11 @@
                  role="tabpanel"
                  aria-labelledby="nav-home-tab"
                  tabindex="0">
-                <people-form :countries="countries"/>
-            </div>
-            <div class="tab-pane fade"
-                 id="nav-profile"
-                 role="tabpanel"
-                 aria-labelledby="nav-profile-tab"
-                 tabindex="1">
+                <people-form :countries="countries"
+                             :cities="cities"
+                             style="padding-bottom: 30px"/>
                 <table class="table table-bordered table-hover" id="myTable">
-                    <thead style="background-color: #858585; color: #152223">
+                    <thead style="background-color: #858585;">
                     <tr>
                         <th>First name</th>
                         <th>Last name</th>
@@ -47,7 +43,6 @@
                         <th>Address</th>
                         <th>Email</th>
                         <th>Phone</th>
-                        <th>Added by</th>
                         <th>Edit</th>
                         <th>Delete</th>
                     </tr>
@@ -58,7 +53,14 @@
                                 :countries="countries"/>
                 </table>
                 <editPeopleModel :person="person"
-                                 :countries="countries"/>
+                                 :countries="countries"
+                                 :cities="cities"/>
+            </div>
+            <div class="tab-pane fade"
+                 id="nav-profile"
+                 role="tabpanel"
+                 aria-labelledby="nav-profile-tab"
+                 tabindex="1">
             </div>
         </div>
     </div>
@@ -73,6 +75,9 @@ export default {
     computed: {
         countries() {
             return this.$store.getters['countriesStore/countries']
+        },
+        cities() {
+            return this.$store.getters['countriesStore/cities']
         },
         people() {
             return this.$store.getters['peopleStore/people']
@@ -110,29 +115,7 @@ body {
     height: 100%
 }
 
-h1 {
-    font-weight: 500;
-    font-size: 2.6rem;
-    top: -10px;
-}
-
-h3 {
-    font-size: 1.2rem;
-}
-
-.greetings h1,
-.greetings h3 {
-    text-align: center;
-}
-
-h5 {
-    color: #181818;
-}
-
-@media (min-width: 1024px) {
-    .greetings h1,
-    .greetings h3 {
-        text-align: left;
-    }
+table {
+    padding-top: 10px;
 }
 </style>

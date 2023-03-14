@@ -1,6 +1,6 @@
 import App from './pages/App.vue'
 import Vue from 'vue'
-import store from './mainStore'
+import store from './store/mainStore'
 import './logic/vee-validate'
 
 import './assets/base.css'
