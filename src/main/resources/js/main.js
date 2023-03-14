@@ -1,15 +1,13 @@
-import App from "./pages/App.vue";
-import Vue from "vue";
-import PeopleList from "./components/PeopleList.vue";
-import PeopleRow from "./components/PeopleRow.vue";
-import peopleForm from "./components/PeopleForm.vue";
+import App from './pages/App.vue'
+import Vue from 'vue'
+import store from './mainStore'
+import './logic/vee-validate'
+
+import './assets/base.css'
+import './assets/main.css'
 
 new Vue({
     el: '#app',
-    components: {
-        'PeopleList': PeopleList,
-        'PeopleRow': PeopleRow,
-        'PeopleForm': peopleForm
-    },
+    store,
     render: a => a(App)
 })

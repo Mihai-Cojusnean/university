@@ -1,64 +1,107 @@
 <template>
     <div>
-        <form>
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <input type="text" class="form-control" placeholder="Write your first name" v-model="firstName"/>
+        <form id="form">
+            <div class="row mb-4">
+                <div class="col">
+                    <validation-provider v-slot="v" rules="required">
+                        <input class="form-control"
+                               type="text"
+                               placeholder="Write your first name"
+                               v-model="firstName"
+                               name="firstName"/>
+                        <span>{{ v.errors[0] }}</span>
+                    </validation-provider>
                 </div>
-                <div class="form-group col-md-6">
-                    <input type="text" class="form-control" placeholder="Write your first name" v-model="lastName"/>
+                <div class="col">
+                    <validation-provider v-slot="{ errors }" rules="required">
+                        <input class="form-control"
+                               type="text"
+                               placeholder="Write your first name"
+                               v-model="lastName"
+                               name="lastName"/>
+                        <span>{{ errors[0] }}</span>
+                    </validation-provider>
                 </div>
             </div>
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <input type="text" class="form-control" placeholder="Write your date of birth dd/mm/yyyy"
-                           v-model="dateOfBirth"/>
+            <div class="row mb-4">
+                <div class="col">
+                    <input class="form-control"
+                           type="text"
+                           placeholder="Write your date of birth dd/mm/yyyy"
+                           v-model="dateOfBirth"
+                           name="dateOfBirth"/>
                 </div>
-                <div class="form-group col-md-6">
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions"
-                               value="Male" v-model="gender">
+                <div class="col">
+                    <validation-provider v-slot="v" rules="required">
+                        <input class="form-check-input"
+                               type="radio"
+                               v-model="gender"
+                               name="gender"
+                               value="Male"/>
                         <label class="form-check-label">Male</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions"
-                               value="Female" v-model="gender">
+                        <input class="form-check-input"
+                               type="radio"
+                               v-model="gender"
+                               name="gender"
+                               value="Female"/>
                         <label class="form-check-label">Female</label>
-                    </div>
+                    </validation-provider>
                 </div>
             </div>
-            <div class="form-row">
-                <div class="form-group col-md-4">
-                    <input type="text" class="form-control" placeholder="Write your address" v-model="address"/>
+            <div class="row mb-4">
+                <div class="col">
+                    <input class="form-control"
+                           type="text"
+                           placeholder="Write your address"
+                           v-model="address"
+                           name="address"/>
                 </div>
-                <div class="form-group col-md-4">
-                    <select class="form-control" v-model="country">
+                <div class="col">
+                    <select class="form-select"
+                            v-model="country"
+                            name="country"
+                            @change="setCities">
                         <option value="none" disabled selected>Select the country you from</option>
                         <option v-for="country in countries" :value="country">{{ country.name }}</option>
                     </select>
                 </div>
-                <div class="form-group col-md-4">
-                    <select id="city" class="form-control" v-model="city">
+                <div class="col">
+                    <select class="form-select"
+                            v-model="city"
+                            name="city">
                         <option value="none" disabled selected>Select the city you from</option>
-                        <option v-for="city in country.cities" :value="city">{{ city.name }}</option>
+                        <option v-for="city in country.cities" :value="city.name">{{ city.name }}</option>
                     </select>
                 </div>
             </div>
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <input type="email" class="form-control" placeholder="Write your email example@mail.com"
-                           v-model="email"/>
+            <div class="row mb-4">
+                <div class="col">
+                    <input class="form-control"
+                           type="email"
+                           placeholder="Write your email example@mail.com"
+                           v-model="email"
+                           name="email"/>
                 </div>
-                <div class="form-group col-md-6">
-                    <input type="number" class="form-control" placeholder="Write your phone number" v-model="phone"/>
+                <div class="col">
+                    <input class="form-control"
+                           type="number"
+                           placeholder="Write your phone number"
+                           v-model="phone"
+                           name="phone"/>
                 </div>
             </div>
-            <div class="form-row align-items-end">
-                <div class="form-group col-md-10">
-                    <input type="text" class="form-control" placeholder="" v-model="form"/>
+            <div class="row align-items-end">
+                <div class="col">
+                    <select class="form-select"
+                            v-model="addedBy"
+                            name="addedBy">
+                        <option value="none" disabled selected>Added by...</option>
+                        <option value="Cojusnean Mihai">Cojusnean Mihai</option>
+                        <option value="Kovalsky Liubomir">Kovalsky Liubomir</option>
+                    </select>
                 </div>
-                <div class="form-group col-md-2 bottom-0">
-                    <button type="button" class="btn btn-lg btn-block" @click="create">Save</button>
+                <div class="d-grid col mx-auto">
+                    <button type="submit" class="btn btn-lg" @click="create">Save</button>
                 </div>
             </div>
         </form>
@@ -66,11 +109,12 @@
 </template>
 
 <script>
-import {getIndex} from "../logic/collection";
-import list_of_countries from '../logic/collection.js'
-
+import { ValidationProvider } from "vee-validate";
 export default {
-    props: ['people', 'personAttr'],
+    components: {
+      ValidationProvider
+    },
+    props: ['countries'],
     data: function () {
         return {
             id: '',
@@ -83,60 +127,32 @@ export default {
             country: 'none',
             city: 'none',
             phone: '',
-            form: '',
-            countries: list_of_countries
-        }
-    },
-    watch: {
-        personAttr: function (newValue) {
-            this.id = newValue.id
-            this.firstName = newValue.firstName
-            this.lastName = newValue.lastName
-            this.dateOfBirth = newValue.dateOfBirth
-            this.gender = newValue.gender
-            this.email = newValue.email
-            this.address = newValue.address
-            this.country = newValue.country
-            this.city = newValue.city
-            this.phone = newValue.phone
-            this.form = newValue.form
+            addedBy: 'none'
         }
     },
     methods: {
-        create: function () {
-            let body = JSON.stringify({
-                id: this.id,
-                firstName: this.firstName,
-                lastName: this.lastName,
-                dateOfBirth: this.dateOfBirth,
-                gender: this.gender,
-                email: this.email,
-                address: this.address,
-                country: this.country.name,
-                city: this.city.name,
-                phone: this.phone,
-                form: this.form
-            })
-            if (this.id) {
-                fetch("/people/" + this.id, {
-                    method: "PUT",
-                    headers: {"Content-Type": "application/json"},
-                    body: body
-                }).then(response => response.json().then(data => {
-                    this.people.splice(getIndex(this.people, data.id), 1, data);
-                }));
-            } else {
-                fetch("/people/", {
-                    method: "POST",
-                    headers: {"Content-Type": "application/json"},
-                    body: body
-                }).then(response => response.json().then(data => {
-                    this.people.push(data);
-                }));
-            }
+        create() {
+            // this.$validator.validateAll().then((result) => {
+            //     if (result) {
+            //         alert('Form Submitted!');
+            //         return;
+            //     }
+            //
+            //     alert('Correct them errors!');
+            // });
+
+            const form = document.querySelector("#form");
+            const body = Object.fromEntries(new FormData(form));
+            body['country'] = this.country.name
+
+            this.$store.dispatch('peopleStore/addPerson', body)
+
             this.id = this.firstName = this.lastName = this.dateOfBirth = this.gender
-                = this.email = this.address = this.phone = this.form = ''
-            this.country = this.city = 'none'
+                = this.email = this.address = this.phone = ''
+            this.country = this.city = this.addedBy = 'none'
+        },
+        setCities() {
+            this.city = 'none'
         }
     }
 }
@@ -149,12 +165,6 @@ export default {
 
 .btn:hover {
     background-color: darkslategrey;
-}
-
-.position-relative-example {
-    height: 200px;
-    width: 100%;
-    background-color: #f5f5f5;
 }
 
 .position-relative-example div {

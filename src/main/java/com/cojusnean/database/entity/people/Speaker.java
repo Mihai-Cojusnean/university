@@ -1,4 +1,4 @@
-package com.cojusnean.database.entity;
+package com.cojusnean.database.entity.people;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -13,13 +13,14 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Table(name = "funding", schema = "event_management")
-public class Funding {
+@Table(name = "speaker", schema = "event_management")
+public class Speaker {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    long speakerId;
 
-    float totalAmount;
-    String status;
+    @JoinColumn(name = "peopleId")
+    @ManyToOne(fetch = FetchType.LAZY)
+    People people;
 }
